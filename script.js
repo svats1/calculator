@@ -7,33 +7,13 @@ const hist = document.querySelector('.hist')
 calc.textContent = 0
 
 buttons.addEventListener('click', (e) => {
-    // console.log(e.target.className)
-    switch (e.target.className) {        
-        case "number":
-            if (calc.textContent != 0) {
-                if (calc.textContent.length < 10) {
-                    calc.textContent += parseInt(e.target.textContent)
-                }       
-            } else calc.textContent = e.target.textContent        
-        break
+    displayVal(4)
 
-        case "operation":
-            hist.textContent = `${calc.textContent} ${e.target.textContent}`
-        break
-        
-        case "clear":
-            calc.textContent = 0
-            hist.textContent = ''
-        break
-        
-        case "equal":
-            calc.textContent = operate("+",1,3)
-        break
-
-        default:
-        // calc.textContent = "NOPE"
-    }
 })
+
+function displayVal(k) {
+    calc.textContent = k
+}
 
 function operate (k,a,b) {
     switch (k) {
@@ -43,7 +23,6 @@ function operate (k,a,b) {
         case "/": return div(a,b)
     }
 }
-
 
 function sum(a,b) {
     return (a) + (b)
