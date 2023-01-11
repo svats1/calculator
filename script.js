@@ -6,14 +6,70 @@ const hist = document.querySelector('.hist')
 
 calc.textContent = 0
 
-buttons.addEventListener('click', (e) => {
-    displayVal(4)
+let displayVal = calc.textContent
+let firstNum
+let secondNum
 
+
+
+buttons.addEventListener('click', (e) => {
+    displayVal = calc.textContent
+
+    switch (e.target.className){
+        case "number":
+            if (calc.textContent != 0) {
+                if (!firstNum) {
+                    if (calc.textContent.length < 10) {
+                        calc.textContent += e.target.textContent
+                        displayVal = calc.textContent
+                    }
+                }
+                else if (!!firstNum) {
+                    console.log('second number!')
+                    if (secondNum.length > 0) {
+                        calc.textContent += e.target.textContent
+                        displayVal = calc.textContent
+                        secondNum = displayVal
+                    }
+                    else {
+                        calc.textContent = e.target.textContent
+                        displayVal = calc.textContent
+                        secondNum = displayVal
+                    }
+                }
+            } 
+            else {
+                calc.textContent = e.target.textContent
+                displayVal = calc.textContent
+            }
+        break
+
+        case "operation":
+            displayVal = calc.textContent
+            firstNum = displayVal
+            hist.textContent = `${firstNum} ${e.target.textContent}`
+            console.log('first number set!')
+            secondNum = ''
+        break
+
+        case "equal":
+
+        break
+
+        case "clear":
+            calc.textContent = 0
+            displayVal = ''
+            firstNum = ''
+            hist.textContent = ''
+        break
+    }
 })
 
-function displayVal(k) {
-    calc.textContent = k
-}
+// function displayVal(k) {
+//     calc.textContent = k
+//     displayVal = calc.textContent
+
+// }
 
 function operate (k,a,b) {
     switch (k) {
