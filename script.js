@@ -9,6 +9,8 @@ calc.textContent = 0
 let displayVal = calc.textContent
 let firstNum
 let secondNum
+let operator
+let result
 
 
 
@@ -47,19 +49,23 @@ buttons.addEventListener('click', (e) => {
         case "operation":
             displayVal = calc.textContent
             firstNum = displayVal
+            operator = e.target.textContent
             hist.textContent = `${firstNum} ${e.target.textContent}`
             console.log('first number set!')
             secondNum = ''
         break
 
         case "equal":
-
+            result = operate(operator, parseInt(firstNum), parseInt(secondNum))
+            hist.textContent += secondNum
+            calc.textContent = result
         break
 
         case "clear":
             calc.textContent = 0
             displayVal = ''
             firstNum = ''
+            secondNum = ''
             hist.textContent = ''
         break
     }
@@ -81,14 +87,14 @@ function operate (k,a,b) {
 }
 
 function sum(a,b) {
-    return (a) + (b)
+    return a + b
 }
 function diff(a,b) {
-    return (a) - (b)
+    return a - b
 }
 function prod(a,b) {
-    return (a) * (b)
+    return a * b
 }
 function div(a,b) {
-    return (a) / (b)
+    return a / b
 }
