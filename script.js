@@ -12,8 +12,6 @@ let secondNum
 let operator
 let result
 
-
-
 buttons.addEventListener('click', (e) => {
     displayVal = calc.textContent
 
@@ -26,16 +24,18 @@ buttons.addEventListener('click', (e) => {
                         displayVal = calc.textContent
                     }
                 }
-                else if (!!firstNum) {
-                    if (secondNum.length > 0) {
-                        calc.textContent += e.target.textContent
+                else if (!!firstNum) { 
+                    if (!secondNum) {
+                        calc.textContent = e.target.textContent
                         displayVal = calc.textContent
                         secondNum = displayVal
                     }
                     else {
-                        calc.textContent = e.target.textContent
-                        displayVal = calc.textContent
-                        secondNum = displayVal
+                        if (calc.textContent.length < 10) {
+                            calc.textContent += e.target.textContent
+                            displayVal = calc.textContent
+                            secondNum = displayVal   
+                        }
                     }
                 }
             } 
@@ -48,21 +48,30 @@ buttons.addEventListener('click', (e) => {
         case "operation":
             if (!secondNum) {
                 firstNum = displayVal
+                console.log('enter second number')
             } else {
-                result = operate(operator, parseInt(firstNum), parseInt(secondNum))
-                firstNum = result            
+                result = operate(operator, parseInt(firstNum, 10), parseInt(secondNum, 10))
+                if ((`${result}`.length) < 11) {
+                    firstNum = result
+                    calc.textContent = result
+                }
+                else {
+                    calc.textContent = "too far"
+                }
+                result = ''
             }
             operator = e.target.textContent
-            hist.textContent = `${firstNum} ${operator} `
-            displayVal = calc.textContent
+            hist.textContent = `${firstNum} ${operator} `            
             secondNum = ''
         break
 
         case "equal":
-            result = operate(operator, parseInt(firstNum), parseInt(secondNum))
+            result = operate(operator, parseInt(firstNum, 10), parseInt(secondNum, 10))
             hist.textContent += secondNum
-            calc.textContent = result
-            displayVal = calc.textContent
+            if ((`${result}`.length) < 11) {
+                calc.textContent = result
+            }
+            else calc.textContent = "too far"
         break
 
         case "clear":
@@ -84,7 +93,6 @@ function operate (k,a,b) {
         case "/": return div(a,b)
         case "^": return pow(a,b)
         case "%": return mod(a,b)
-
     }
 }
 
@@ -98,7 +106,8 @@ function prod(a,b) {
     return a * b
 }
 function div(a,b) {
-    return a / b
+    if (b == 0) return "nice try" 
+    else return a/b
 }
 function pow(a,b) {
     return Math.pow(a,b)
