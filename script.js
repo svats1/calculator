@@ -27,7 +27,6 @@ buttons.addEventListener('click', (e) => {
                     }
                 }
                 else if (!!firstNum) {
-                    console.log('second number!')
                     if (secondNum.length > 0) {
                         calc.textContent += e.target.textContent
                         displayVal = calc.textContent
@@ -48,14 +47,14 @@ buttons.addEventListener('click', (e) => {
 
         case "operation":
             displayVal = calc.textContent
-            // single operation chaining
-            if (!result) {
+            if (!secondNum) {
                 firstNum = displayVal
-            } else firstNum = result
-            
+            } else {
+                result = operate(operator, parseInt(firstNum), parseInt(secondNum))
+                firstNum = result            
+            }
             operator = e.target.textContent
-            hist.textContent = `${firstNum} ${e.target.textContent} `
-            console.log('first number set!')
+            hist.textContent = `${firstNum} ${operator} `
             secondNum = ''
         break
 
@@ -63,6 +62,7 @@ buttons.addEventListener('click', (e) => {
             result = operate(operator, parseInt(firstNum), parseInt(secondNum))
             hist.textContent += secondNum
             calc.textContent = result
+            displayVal = calc.textContent
         break
 
         case "clear":
@@ -70,23 +70,21 @@ buttons.addEventListener('click', (e) => {
             displayVal = ''
             firstNum = ''
             secondNum = ''
+            result = ''
             hist.textContent = ''
         break
     }
 })
 
-// function displayVal(k) {
-//     calc.textContent = k
-//     displayVal = calc.textContent
-
-// }
-
 function operate (k,a,b) {
     switch (k) {
         case "+": return sum(a,b)
         case "-": return diff(a,b)
-        case "*": return prod(a,b)
+        case "X": return prod(a,b)
         case "/": return div(a,b)
+        case "%": return pct(a)
+        case "+/-": return sign(a)
+
     }
 }
 
@@ -101,4 +99,10 @@ function prod(a,b) {
 }
 function div(a,b) {
     return a / b
+}
+function pct(a) {
+    a/100
+}
+function sign(a) {
+    return a*-1
 }
