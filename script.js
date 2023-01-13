@@ -46,7 +46,6 @@ buttons.addEventListener('click', (e) => {
         break
 
         case "operation":
-            displayVal = calc.textContent
             if (!secondNum) {
                 firstNum = displayVal
             } else {
@@ -55,6 +54,7 @@ buttons.addEventListener('click', (e) => {
             }
             operator = e.target.textContent
             hist.textContent = `${firstNum} ${operator} `
+            displayVal = calc.textContent
             secondNum = ''
         break
 
@@ -82,8 +82,8 @@ function operate (k,a,b) {
         case "-": return diff(a,b)
         case "X": return prod(a,b)
         case "/": return div(a,b)
-        case "%": return pct(a)
-        case "+/-": return sign(a)
+        case "^": return pow(a,b)
+        case "%": return mod(a,b)
 
     }
 }
@@ -100,9 +100,9 @@ function prod(a,b) {
 function div(a,b) {
     return a / b
 }
-function pct(a) {
-    a/100
+function pow(a,b) {
+    return Math.pow(a,b)
 }
-function sign(a) {
-    return a*-1
+function mod(a,b) {
+    return a % b
 }
