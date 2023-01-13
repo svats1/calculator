@@ -48,9 +48,13 @@ buttons.addEventListener('click', (e) => {
 
         case "operation":
             displayVal = calc.textContent
-            firstNum = displayVal
+            // single operation chaining
+            if (!result) {
+                firstNum = displayVal
+            } else firstNum = result
+            
             operator = e.target.textContent
-            hist.textContent = `${firstNum} ${e.target.textContent}`
+            hist.textContent = `${firstNum} ${e.target.textContent} `
             console.log('first number set!')
             secondNum = ''
         break
