@@ -51,7 +51,8 @@ buttons.addEventListener('click', (e) => {
         case "operation":
             if (!secondNum) {
                 firstNum = displayVal
-            } else {
+            } 
+            else {
                 result = operate(operator, +parseFloat(firstNum).toFixed(2), +parseFloat(secondNum).toFixed(2))
                 if ((`${result}`.length) < 11) {
                     firstNum = result
@@ -68,8 +69,10 @@ buttons.addEventListener('click', (e) => {
         break
 
         case "equal":
-            result = operate(operator, +parseFloat(firstNum).toFixed(2), +parseFloat(secondNum).toFixed(2))
-            hist.textContent += secondNum
+            if (!!secondNum) {
+                hist.textContent += secondNum
+                result = operate(operator, +parseFloat(firstNum).toFixed(2), +parseFloat(secondNum).toFixed(2))
+            }
             if ((`${result}`.length) < 11) {
                 calc.textContent = result
             }
