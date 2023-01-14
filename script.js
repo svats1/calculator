@@ -13,11 +13,9 @@ let operator
 let result
 
 buttons.addEventListener('click', (e) => {
-    displayVal = calc.textContent
-
     switch (e.target.className){
         case "number":
-            if (calc.textContent != 0) {
+            if (displayVal != 0) {
                 if (!firstNum) {
                     if (calc.textContent.length < 10) {
                         calc.textContent += e.target.textContent
@@ -31,7 +29,7 @@ buttons.addEventListener('click', (e) => {
                         secondNum = displayVal
                     }
                     else {
-                        if (calc.textContent.length < 10) {
+                        if (calc.textContent.length < 10) {               
                             calc.textContent += e.target.textContent
                             displayVal = calc.textContent
                             secondNum = displayVal   
@@ -40,21 +38,21 @@ buttons.addEventListener('click', (e) => {
                 }
             } 
             else {
+                console.log('test')
+                hist.textContent = ''
                 calc.textContent = e.target.textContent
                 displayVal = calc.textContent
                 if (!!firstNum) {
                     secondNum += calc.textContent
                 }
-                // secondNum = displayVal
             }
         break
 
         case "operation":
             if (!secondNum) {
                 firstNum = displayVal
-                console.log('enter second number')
             } else {
-                result = operate(operator, parseFloat(firstNum, 10), parseFloat(secondNum, 10)).toFixed(2)
+                result = operate(operator, +parseFloat(firstNum).toFixed(2), +parseFloat(secondNum).toFixed(2))
                 if ((`${result}`.length) < 11) {
                     firstNum = result
                     calc.textContent = result
@@ -70,12 +68,15 @@ buttons.addEventListener('click', (e) => {
         break
 
         case "equal":
-            result = operate(operator, parseFloat(firstNum, 10), parseFloat(secondNum, 10)).toFixed(2)
+            result = operate(operator, +parseFloat(firstNum).toFixed(2), +parseFloat(secondNum).toFixed(2))
             hist.textContent += secondNum
             if ((`${result}`.length) < 11) {
                 calc.textContent = result
             }
             else calc.textContent = "too far"
+            displayVal = 0
+            firstNum = ''
+            secondNum = ''
         break
 
         case "clear":
@@ -111,7 +112,7 @@ function prod(a,b) {
 }
 function div(a,b) {
     if (b == 0) return "nice try" 
-    else return a/b
+    else return (a/b)
 }
 function pow(a,b) {
     return Math.pow(a,b)
