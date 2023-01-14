@@ -42,6 +42,10 @@ buttons.addEventListener('click', (e) => {
             else {
                 calc.textContent = e.target.textContent
                 displayVal = calc.textContent
+                if (!!firstNum) {
+                    secondNum += calc.textContent
+                }
+                // secondNum = displayVal
             }
         break
 
@@ -50,7 +54,7 @@ buttons.addEventListener('click', (e) => {
                 firstNum = displayVal
                 console.log('enter second number')
             } else {
-                result = operate(operator, parseInt(firstNum, 10), parseInt(secondNum, 10))
+                result = operate(operator, parseFloat(firstNum, 10), parseFloat(secondNum, 10)).toFixed(2)
                 if ((`${result}`.length) < 11) {
                     firstNum = result
                     calc.textContent = result
@@ -66,7 +70,7 @@ buttons.addEventListener('click', (e) => {
         break
 
         case "equal":
-            result = operate(operator, parseInt(firstNum, 10), parseInt(secondNum, 10))
+            result = operate(operator, parseFloat(firstNum, 10), parseFloat(secondNum, 10)).toFixed(2)
             hist.textContent += secondNum
             if ((`${result}`.length) < 11) {
                 calc.textContent = result
