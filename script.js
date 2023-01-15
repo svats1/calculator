@@ -38,7 +38,6 @@ buttons.addEventListener('click', (e) => {
                 }
             } 
             else {
-                console.log('test')
                 hist.textContent = ''
                 calc.textContent = e.target.textContent
                 displayVal = calc.textContent
@@ -77,7 +76,7 @@ buttons.addEventListener('click', (e) => {
                 calc.textContent = result
             }
             else calc.textContent = "too far"
-            displayVal = 0
+            displayVal = result
             firstNum = ''
             secondNum = ''
         break
