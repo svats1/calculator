@@ -1,4 +1,6 @@
+const body = document.querySelector('.outerbody');
 const buttons = document.querySelector('.buttons');
+const screen = document.querySelector('.screen');
 const calc = document.querySelector('.calc');
 const hist = document.querySelector('.hist');
 
@@ -103,7 +105,7 @@ function prod(a, b) {
   return a * b;
 }
 function div(a, b) {
-  if (b === 0) return 'nice try';
+  if (b == 0) return 'nice try';
   return (a / b);
 }
 function pow(a, b) {
